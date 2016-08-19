@@ -67,6 +67,7 @@
 #define LCD_GC_CHAR7            7
  
 #define LCD_SET_DDADR           0x80
+#define LCD_LINEWIDTH           16
  
 void lcd_init(void);
 void lcd_clear(void);

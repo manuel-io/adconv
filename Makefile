@@ -34,7 +34,7 @@ dispatch: $(NAME).hex
 %.bin: %.elf
 	$(OBJCOPY) -j .text -j .data -O binary $< $@
 
-$(NAME).elf: main.o hd44780.o dht11.o fc28.o ldr.o
+$(NAME).elf: main.o hd44780.o dht11.o adc.o
 	$(MCU_CC) $(CFLAGS) $(LDFLAGS) -o $@ $+
 
 clean:

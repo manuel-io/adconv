@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "include/config.h"
-#include "include/ldr.h"
+#include "include/adc.h"
 
 /*
  * The ATmega8 features a 10-bit successive approximation ADC. The ADC
@@ -114,28 +114,24 @@
  *
  */
 
-static uint8_t ldr_single(void);
+static void adc_init(uint8_t);
+static uint8_t adc_single(void);
 
-void
-ldr_init() {
-  ADMUX |= (1 << REFS0) | (1 << ADLAR) | (LDR_CHANNEL & 0x7);
+static void
+adc_init(uint8_t channel) {
+  ADMUX = (1 << REFS0) | (1 << ADLAR) | (channel & 0x7);
   ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
 }
 
-void
-ldr_read(char *str)
+uint8_t
+adc_read(uint8_t channel)
 {
-  uint8_t value = ldr_single();
-
-  if (value < 50) { str = "100%"; }
-  else if (value < 100) { str = " 75%"; }
-  else if (value < 150) { str = " 50%"; }
-  else if (value < 200) { str = " 25%"; }
-  else { str = "  0%"; }
+  adc_init(channel);
+  return adc_single();
 }
 
 static uint8_t
-ldr_single() {
+adc_single() {
   /* A single conversion is started by writing a logical one to the
    * ADC Start Conversion bit, ADSC. This bit stays high as long as
    * the conversion is in progress and will be cleared by hardware

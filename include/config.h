@@ -1,8 +1,6 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define LDR_CHANNEL 0
-
 #define LCD_PORT PORTB
 #define LCD_DDR  DDRB
 #define LCD_R    PB0
@@ -13,10 +11,8 @@
 #define DHT_DDR DDRB
 #define DHT_PIN PB7
 
-#define FC28_OUTPUT PORTC
-#define FC28_INPUT PINC
-#define FC28_DDR DDRC
-#define FC28_PIN PC0
+#define LDR_CHANNEL PC2
+#define FC28_CHANNEL PC3
 
 #define STATUS_LED_ON DDRB |= (1 << PB6); \
                       PORTB |= (1 << PB6)

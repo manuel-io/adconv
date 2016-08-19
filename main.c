@@ -4,30 +4,29 @@
 #include "include/config.h"
 #include "include/hd44780.h"
 #include "include/dht11.h"
-#include "include/ldr.h"
+#include "include/adc.h"
 
 int
 main(void)
 {
-  uint8_t dat[5];
-  char line[16];
+  uint8_t dht[DHT_DATASIZE];
+  char line[LCD_LINEWIDTH];
 
   dht_init();
   lcd_init();
 
   for (;;) {
-    dht_query(dat);
+    dht_query(dht);
 
-    if (dht_check(dat) && dat[4] != 0) {
+    if (dht_check(dht) && dht[4] != 0) {
       STATUS_LED_BLINK;
-      STATUS_LED_OFF;
     } else {
       STATUS_LED_ON;
     }
 
     for (uint8_t i = 0; i < 10; i++) {
 
-      sprintf(line, "%d\337 C, %d\337 F", dat[2], (int)((dat[2]*9*0.2) + 32));
+      sprintf(line, "%d\337 C, %d\337 F", dht[2], (uint8_t)((dht[2]*9*0.2) + 32));
       lcd_clear();
       lcd_string("Temperature:");
       lcd_setcursor(0, 2);
@@ -35,9 +34,25 @@ main(void)
 
       _delay_ms(3000);
 
-      sprintf(line, "%d%%", dat[0]);
+      sprintf(line, "%d%%", dht[0]);
       lcd_clear();
       lcd_string("Humidity:");
+      lcd_setcursor(0, 2);
+      lcd_string(line);
+
+      _delay_ms(3000);
+  
+      sprintf(line, "%d%%", (uint8_t)(adc_read(LDR_CHANNEL)*100/220));
+      lcd_clear();
+      lcd_string("Light:");
+      lcd_setcursor(0, 2);
+      lcd_string(line);
+
+      _delay_ms(3000);
+
+      sprintf(line, "%d%%", (uint8_t)(adc_read(FC28_CHANNEL)*100/255));
+      lcd_clear();
+      lcd_string("Moisture:");
       lcd_setcursor(0, 2);
       lcd_string(line);
 
