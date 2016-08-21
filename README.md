@@ -9,6 +9,10 @@ ADConv is the software for a weather station based on the ATmega8 initially
 * Using internal RC oscillator
 * + Connector for extensions
 
+## Layout
+
+![Layout](https://raw.githubusercontent.com/manuel-io/adconv/atmega8/share/adconv-layout.png)
+
 ## Datasheets
 
 * [ATmega8](http://www.atmel.com/images/atmel-2486-8-bit-avr-microcontroller-atmega8_l_datasheet.pdf)
