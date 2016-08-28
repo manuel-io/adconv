@@ -6,7 +6,7 @@ MCU_TARGET  := atmega8
 MCU_CC      := avr-gcc
 OPTIMIZE    := -Os
 WARNINGS    := -Wall
-DEFS        := -DF_CPU=8000000
+DEFS        := -DF_CPU=8000000 -DV2
 CFLAGS      := -std=c99 -MMD -g -mmcu=$(MCU_TARGET) $(OPTIMIZE) $(WARNINGS) $(DEFS)
 ASFLAGS     := -g $(DEFS) -mmcu=$(MCU_TARGET)
 LDFLAGS     := -Wl,-Map,$(NAME).map
