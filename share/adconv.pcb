@@ -2846,6 +2846,7 @@ Layer(8 "spare")
 	Line[93.0417mm 663.06mil 85.4217mm 663.06mil 59.06mil 118.12mil "clearline"]
 	Line[57.4817mm 663.06mil 54.9417mm 663.06mil 59.06mil 118.12mil "clearline"]
 	Line[65.1017mm 70.1817mm 90.5017mm 70.1817mm 59.06mil 118.12mil "clearline"]
+	Line[47.3217mm 34.6217mm 34.6217mm 34.6217mm 59.06mil 118.12mil "clearline"]
 )
 Layer(9 "silk")
 (

@@ -1,26 +1,27 @@
 NAME        := adconv
+VERSION     := v2.0
+MCU         := m8
+DEFS        := -DF_CPU=16000000 -DV2
 DEV         := /dev/ttyACM0
 RATE        := 115200
-MCU         := m8
 MCU_TARGET  := atmega8
 MCU_CC      := avr-gcc
 OPTIMIZE    := -Os
 WARNINGS    := -Wall
-DEFS        := -DF_CPU=8000000 -DV2
 CFLAGS      := -std=c99 -MMD -g -mmcu=$(MCU_TARGET) $(OPTIMIZE) $(WARNINGS) $(DEFS)
 ASFLAGS     := -g $(DEFS) -mmcu=$(MCU_TARGET)
 LDFLAGS     := -Wl,-Map,$(NAME).map
-
 OBJCOPY     := avr-objcopy
 OBJDUMP     := avr-objdump
-FLASHUSBCMD := avrdude -V -c usbasp -p $(MCU) -U lfuse:w:0xe4:m -U flash:w:$(NAME).hex
+FLASHCMD    := avrdude -V -c usbasp -p $(MCU) -U lfuse:w:0x9f:m -U hfuse:w:0xc9:m -U flash:w:$(NAME).hex
 
 .PHONY: clean dispatch
 
 all: $(NAME).hex $(NAME).bin
+	$(info $(VERSION))
 
 dispatch: $(NAME).hex
-	$(FLASHUSBCMD)
+	$(FLASHCMD)
 
 %.o: %.c
 	$(MCU_CC) -c $(CFLAGS) $<
