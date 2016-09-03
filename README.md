@@ -9,7 +9,7 @@ more stable you can fall back to [v1.0][v1.0].
 
 ---
 
-![Schematics](https://raw.githubusercontent.com/manuel-io/adconv/a26dc0e314374e9e08c7f994e431f26873935a13/share/schematics.png)
+![Schematics](share/schematics.png)
 
 * Build on a strip grid board
 * Cheap and easy construction
@@ -20,7 +20,7 @@ more stable you can fall back to [v1.0][v1.0].
 
 Strip-Gridboard 100x100, RM2.54
 
-![Layout](https://raw.githubusercontent.com/manuel-io/adconv/a26dc0e314374e9e08c7f994e431f26873935a13/share/layout.png)
+![Layout](share/layout.png)
 
 ## Get it
     git clone -b atmega8 https://github.com/manuel-io/adconv.git
@@ -32,29 +32,29 @@ Strip-Gridboard 100x100, RM2.54
 ## Construction elements
 
 | Amount | Layout       | Element            | Reichelt        | Amazon                        |
-|-------:|:-------------|:-------------------|:----------------|:------------------------------|
-|1       | ATmega8      | ATmega8            | ATMEGA 8-16 DIP |                               |
-|1       |              | Socket             | GS 28           |                               |
-|1       | 16MHz        | Crystal            | 16,0000-HC49U-S |                               |
-|1       | LED1         | LED Green          | LED 5MM GN      |                               |
-|1       | LED2         | LED Red            | LED 5MM RT      |                               |
-|1       |              | Board 100x100      | H25SR100        |                               |
-|3       | R1.5k        | Resistor           | 1/4W 1,5K       |                               |
-|1       | R1k          | Resistor           | 1/4W 1,0K       |                               |
-|1       | LDR          | Photoresistor      | A 906011        |                               |
-|1       | PB1          | Push-Button        | TASTER 3301B    |                               |
-|1       | PB2          | Push-Button        | TASTER 3301B    |                               |
-|1       | X-Connector  | Plug, straight     | WSL 10G         |                               |
-|1       | SPI/ISP      | Plug, angled       | WSL 10W         |                               |
-|3       | 100n         | Capacitor          | KERKO 100N      |                               |
-|2       | 22p          | Capacitor          | KERKO 22P       |                               |
-|1       | POT10k       | Potentiometer      | PO4M-LIN 10K    |                               |
-|1       | PC1          | Pin header, female | BL 1X16G7 2,54  |                               |
-|1       | PC2          | Pin header, female | BL 1X05G7 2,54  |                               |
-|1       |              | Pin header, male   | MPE 087-1-016   |                               |
-|1       | HD44780      | Display            | LCD 162C BL     | [1602 LCD Module][alcd]       |
-|1       | DHT11 Module | DHT11 & Resistor   |                 | [Arduino DHT11 Module][adht]  |
-|1       | FC-28 Module | FC-28 & Resistor   |                 | [Arduino FC-28 Module][afc28] |
+|-------:|:---------------|:-------------------|:----------------|:------------------------------|
+|1       | IC1            | ATmega8            | ATMEGA 8-16 DIP |                               |
+|1       |                | Socket             | GS 28           |                               |
+|1       | 16MHz          | Crystal            | 16,0000-HC49U-S |                               |
+|1       | LED1           | LED Green          | LED 5MM GN      |                               |
+|1       | LED2           | LED Red            | LED 5MM RT      |                               |
+|1       |                | Board 100x100      | H25SR100        |                               |
+|3       | R1.5k          | Resistor           | 1/4W 1,5K       |                               |
+|1       | R1k            | Resistor           | 1/4W 1,0K       |                               |
+|1       | LDR            | Photoresistor      | A 906011        |                               |
+|1       | PB1            | Push-Button        | TASTER 3301B    |                               |
+|1       | PB2            | Push-Button        | TASTER 3301B    |                               |
+|1       | X-Connector    | Plug, straight     | WSL 10G         |                               |
+|1       | SPI/ISP        | Plug, angled       | WSL 10W         |                               |
+|3       | 100n           | Capacitor          | KERKO 100N      |                               |
+|2       | 22p            | Capacitor          | KERKO 22P       |                               |
+|1       | POT10k         | Potentiometer      | PO4M-LIN 10K    |                               |
+|1       | PC1            | Pin header, female | BL 1X16G7 2,54  |                               |
+|1       | PC2            | Pin header, female | BL 1X05G7 2,54  |                               |
+|1       |                | Pin header, male   | MPE 087-1-016   |                               |
+|1       | HD44780        | Display            | LCD 162C BL     | [1602 LCD Module][alcd]       |
+|1       | DHT11 Breakout | DHT11 & Resistor   |                 | [Arduino DHT11 Module][adht]  |
+|1       | FC-28 Breakout | FC-28 & Resistor   |                 | [Arduino FC-28 Module][afc28] |
 
 ## Datasheets
 
