@@ -14,7 +14,7 @@ more stable you can fall back to [v1.0][v1.0], [v2.0][v2.0].
 * Build on a strip grid board
 * Cheap and easy construction
 * Using external oscillator up to 16MHz
-* + Connector for extensions (X Connector)
+* Connector for extensions (X Connector)
 
 ## Layout
 
