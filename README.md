@@ -55,15 +55,18 @@ Strip-Gridboard 100x100, RM2.54
 |1       | HD44780      | Display            | LCD 162C BL     | [1602 LCD Module][alcd]       |
 |1       | DHT11 Module | DHT11 Breakout     |                 | [Arduino DHT11 Module][adht]  |
 |1       | FC-28 Module | FC-28 Breakout     |                 | [Arduino FC-28 Module][afc28] |
+|1       |              | CP2102 Breakout    |                 | [CP2102 Breakout][cp]         |
 
 ## Datasheets
 
 * [ATmega8](http://www.atmel.com/images/atmel-2486-8-bit-avr-microcontroller-atmega8_l_datasheet.pdf)
 * [DHT11](https://akizukidenshi.com/download/ds/aosong/DHT11.pdf)
 * [HD44780](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf)
+* [CP2102](https://www.sparkfun.com/datasheets/IC/cp2102.pdf)
 
 [v1.0]: https://github.com/manuel-io/adconv/tree/v1.0
 [v2.0]: https://github.com/manuel-io/adconv/tree/v2.0
 [alcd]: https://www.amazon.de/gp/product/B009GEPZRE/
 [adht]: https://www.amazon.de/gp/product/B017CWS1VS/
 [afc28]: https://www.amazon.de/gp/product/B015CE4M2K/
+[cp]: https://www.amazon.de/gp/product/B008RF73CS/
