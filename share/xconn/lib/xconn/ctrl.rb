@@ -15,8 +15,8 @@ module XConn
       loop do
         if getok
           if getcmd('-', result = String.new)
-            line = Time.now.strftime "%Y-%m-%d, %H:%M:%S %z: " + result
-            File.open(Logfile, 'a') { |fd| fd << "#{line}\n" }
+              line = Time.now.strftime "%Y-%m-%d, %H:%M:%S %z: " + result
+              File.open(Logfile, 'a') { |fd| fd << "#{line}\n" }
           end
         end
         @serial.break 1
@@ -25,9 +25,9 @@ module XConn
 
     private
 
-    def getok(command = "UP")
-      @serial.puts "#{command}"
-      if @serial.gets =~ /^OK\s.*/
+    def getok(command = "*")
+      @serial.puts(command)
+      if @serial.gets =~ /^#{command}/
         return true
       else return false
       end
@@ -35,7 +35,7 @@ module XConn
 
     def getcmd(command = nil, result)
       @serial.puts(command)
-      if (result.replace @serial.gets.to_s.strip) =~ /^#{command}\s.*/
+      if (result.replace @serial.gets.to_s.strip) =~ /^#{command}/
         return true
       else return false
       end

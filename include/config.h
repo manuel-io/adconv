@@ -19,6 +19,9 @@
 #define DHT_INPUT PIND
 #define DHT_DDR DDRD
 #define DHT_PIN PD7
+
+/* 16.000MHz */
+#define USART_BAUDRATE 0x67
 #endif /* V2 */
 
 #ifndef LED_OUTPUT
@@ -30,6 +33,9 @@
 #define DHT_INPUT PINB
 #define DHT_DDR DDRB
 #define DHT_PIN PB7
+
+/* 16.000MHz */
+#define USART_BAUDRATE 0x33
 #endif /* LED_OUTPUT */
 
 #define STATUS_LED_ON LED_DDR |= (1 << LED_PIN); \

@@ -26,7 +26,7 @@
  * not go into effect until ADEN is set. The ADC does not consume
  * power when ADEN is cleared, so it is recommended to switch off the
  * ADC before entering power saving sleep modes.  The ADC generates a
- * 10-bit result which is pr esented in the ADC Data Registers, ADCH
+ * 10-bit result which is presented in the ADC Data Registers, ADCH
  * and ADCL. By default, the result is presented right adjusted, but
  * can optionally be presented left adjusted by setting the ADLAR bit
  * in ADMUX.

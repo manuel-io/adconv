@@ -5,6 +5,7 @@
 #include "include/hd44780.h"
 #include "include/dht11.h"
 #include "include/adc.h"
+#include "include/uart.h"
 
 int
 main(void)
@@ -14,6 +15,7 @@ main(void)
 
   dht_init();
   lcd_init();
+  uart_init();
 
   for (;;) {
     dht_query(dht);
