@@ -1,11 +1,11 @@
 module XConn
   class Handle
-    def initialize
+    def initialize modifiers
 
      ctrl = Thread.new do
         Ctrl.new({
           baudrate: 9600,
-          port: '/home/workspace/ttyS20',
+          port: modifiers[:device],
           data: 8,
           stop: 1,
           timeout: 5000

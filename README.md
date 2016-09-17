@@ -64,6 +64,31 @@ Strip-Gridboard 100x100, RM2.54
 * [HD44780](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf)
 * [CP2102](https://www.sparkfun.com/datasheets/IC/cp2102.pdf)
 
+## XConn
+
+The XConnector (Extension connector) is a general purpose plug with 9
+pins including the USART data lines of the microcontroller. The
+default usage is a serial UART connection to another device. For
+instance, the measured weather data can be transmitted to a Raspberry
+Pi or similar. The source base includes a web interface which is ready
+for that scenario.
+
+## SClient
+
+The SClient is a small program in order to simulate the behavior of a
+serial connected microcontroller. It just gives randomly weather data
+to a virtual serial interface which in turn can be analysed by the web
+interface.
+
+This program exists for testing purpose:
+
+    cd adconv/share/sclient/
+    make
+    cd ../../../
+    socat pty,raw,echo=0,link=/tmp/ttyS20 pty,raw,echo=0,link=/tmp/ttyS21
+    ruby adconv/share/xconn/bin/xconn.rb
+    ./adconv/share/sclient/sclient
+
 [v1.0]: https://github.com/manuel-io/adconv/tree/v1.0
 [v2.0]: https://github.com/manuel-io/adconv/tree/v2.0
 [alcd]: https://www.amazon.de/gp/product/B009GEPZRE/

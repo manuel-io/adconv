@@ -1,4 +1,6 @@
+#include <util/delay.h>
 #include <avr/io.h>
+#include <stdio.h>
 #include "include/config.h"
 #include "include/uart.h"
 
@@ -30,6 +32,12 @@
  * --------------------------------------------------------------
  *
  */
+
+#define BAUD 9600UL
+
+#define UBRR_VAL ((F_CPU+BAUD*8)/(BAUD*16)-1)
+#define BAUD_REAL (F_CPU/(16*(UBRR_VAL+1)))
+#define BAUD_ERROR ((BAUD_REAL*1000)/BAUD)
 
 static uint8_t uart_getc(void);
 static void uart_putc(uint8_t);
@@ -70,54 +78,34 @@ uart_putstr(uint8_t *data)
 static uint8_t
 uart_start()
 {
-  uint8_t c = 0;
-  if ((c = uart_getc()) == 0x2a) {
+  if (uart_getc() == 0x2a) {
     uart_getc();
     uart_putstr((uint8_t *)"*");
-    while ((c = uart_getc()) != 0x2d);
+    while (uart_getc() != 0x2d);
     return 1;
   }
-
   return 0;
 }
 
-uint8_t
-uart_send(uint8_t temp, uint8_t air, uint8_t soil, uint8_t light)
-{
-  while (!uart_start());
 
-  uart_putc(0x2d);
-  uart_putc(' ');
-  /* Temperature */
-  uart_putc(temp);
-  uart_putc(' ');
-  /* Air humidity */
-  uart_putc(air);
-  uart_putc(' ');
-  /* Soil moisture */
-  uart_putc(soil);
-  uart_putc(' ');
-  /* Light level */
-  uart_putc(light);
-  uart_putc('\n');
+uint8_t
+uart_send(int8_t temp, uint8_t air, uint8_t soil, uint8_t light)
+{
+  char data[16];
+
+  while (!uart_start());
+  
+  sprintf(data, "- %d %d %d %d", temp, air, soil, light);
+  uart_putstr((uint8_t *)data);
   
   return 1;
 }
 
 void
 uart_init() {
-  /* Enable receiver and transmitter */
+  UBRRH = UBRR_VAL >> 8;
+  UBRRL = UBRR_VAL & 0xff;
+  UCSRC = (1 << URSEL) | (1 << UCSZ1)| (1 << UCSZ0);
   UCSRB |= (1 << RXEN) | (1 << TXEN);
-  
-  /* URSEL 1: If URSEL is one,
-   * the UCSRC setting will be updated.
-   */
-  UCSRC |= (1 << URSEL);
-
-  /* Asynchronous, No parity, 1 Stop bit, 8 Data bits */
-  UCSRC &= ~(1 << UMSEL) & ~(1 << UPM1) & ~(1 << UPM0) & ~(1 << USBS);
-  UCSRC |= (1 << UCSZ1) | (1 << UCSZ1);
-
-  /* Baudrate: 9600bps */
-  UBRRL = USART_BAUDRATE;
 }
+

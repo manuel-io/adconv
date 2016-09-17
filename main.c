@@ -10,6 +10,8 @@
 int
 main(void)
 {
+  uint8_t ldr;
+  uint8_t fc28;
   uint8_t dht[DHT_DATASIZE];
   char line[LCD_LINEWIDTH];
 
@@ -19,12 +21,16 @@ main(void)
 
   for (;;) {
     dht_query(dht);
+    ldr = (uint8_t)(adc_read(LDR_CHANNEL)*100/220);
+    fc28 = (uint8_t)(adc_read(FC28_CHANNEL)*100/255);
 
     if (dht_check(dht) && dht[4] != 0) {
       STATUS_LED_BLINK;
     } else {
       STATUS_LED_ON;
     }
+
+    uart_send(dht[2], dht[0], fc28, ldr);
 
     for (uint8_t i = 0; i < 10; i++) {
 
@@ -44,7 +50,7 @@ main(void)
 
       _delay_ms(3000);
   
-      sprintf(line, "%d%%", (uint8_t)(adc_read(LDR_CHANNEL)*100/220));
+      sprintf(line, "%d%%", ldr);
       lcd_clear();
       lcd_string("Light:");
       lcd_setcursor(0, 2);
@@ -52,7 +58,7 @@ main(void)
 
       _delay_ms(3000);
 
-      sprintf(line, "%d%%", (uint8_t)(adc_read(FC28_CHANNEL)*100/255));
+      sprintf(line, "%d%%", fc28);
       lcd_clear();
       lcd_string("Moisture:");
       lcd_setcursor(0, 2);

@@ -12,7 +12,10 @@
 
 static uint8_t uart_getc(void);
 static void uart_putc(uint8_t);
-uint8_t uart_send(uint8_t, uint8_t, uint8_t, uint8_t);
+static void uart_putstr(uint8_t *);
+static uint8_t uart_start(void);
+static void uart_init(void);
+uint8_t uart_send(int8_t, uint8_t, uint8_t, uint8_t);
 
 static int fd;
 static struct termios tio;
@@ -46,13 +49,10 @@ uart_putstr(uint8_t *data)
 static uint8_t
 uart_start()
 {
-  uint8_t c = 0;
-  if ((c = uart_getc()) == 0x2a) {
-    printf("%c\n", c);
-    c = uart_getc();
+  if (uart_getc() == 0x2a) {
+    uart_getc();
     uart_putstr((uint8_t *)"*");
-    while ((c = uart_getc()) != 0x2d);
-    printf("%c\n", c);
+    while (uart_getc() != 0x2d);
     return 1;
   }
 
@@ -70,31 +70,21 @@ uart_init()
   tio.c_cc[VMIN] = 1;
   tio.c_cc[VTIME] = 5;
   
-  fd = open("/home/workspace/ttyS21", O_RDWR);
+  fd = open("/tmp/ttyS21", O_RDWR);
   cfsetospeed(&tio,B9600);
   cfsetispeed(&tio,B9600);
   tcsetattr(fd, TCSANOW, &tio);
 }
 
 uint8_t
-uart_send(uint8_t temp, uint8_t air, uint8_t soil, uint8_t light)
+uart_send(int8_t temp, uint8_t air, uint8_t soil, uint8_t light)
 {
+  char data[16];
+
   while (!uart_start());
 
-  uart_putc(0x2d);
-  uart_putc(' ');
-  /* Temperature */
-  uart_putc(temp);
-  uart_putc(' ');
-  /* Air humidity */
-  uart_putc(air);
-  uart_putc(' ');
-  /* Soil moisture */
-  uart_putc(soil);
-  uart_putc(' ');
-  /* Light level */
-  uart_putc(light);
-  uart_putc('\n');
+  sprintf(data, "- %d %d %d %d", temp, air, soil, light);
+  uart_putstr((uint8_t *)data);
   
   return 1;
 }
@@ -102,11 +92,18 @@ uart_send(uint8_t temp, uint8_t air, uint8_t soil, uint8_t light)
 int
 main()
 {
+  int8_t m;
   uart_init();
+
   while (1) {
-    uart_send(0x4f, 0x50, 0x51, 0x52);
+    m = (rand() % 100) < 50 ? 1 : -1;
+    uart_send(m * (rand() % 40), \
+                  (rand() % 100), \
+                  (rand() % 100), \
+                  (rand() % 100));
     sleep(10);
   }
+
   close(fd);
   return EXIT_SUCCESS;
 }
