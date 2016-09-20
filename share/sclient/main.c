@@ -92,15 +92,13 @@ uart_send(int8_t temp, uint8_t air, uint8_t soil, uint8_t light)
 int
 main()
 {
-  int8_t m;
   uart_init();
 
   while (1) {
-    m = (rand() % 100) < 50 ? 1 : -1;
-    uart_send(m * (rand() % 40), \
-                  (rand() % 100), \
-                  (rand() % 100), \
-                  (rand() % 100));
+    uart_send((rand() % 50), \
+              (rand() % 100), \
+              (rand() % 100), \
+              (rand() % 100));
     sleep(10);
   }
 

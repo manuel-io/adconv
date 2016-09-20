@@ -7,10 +7,12 @@ require 'syslog'
 require 'fileutils'
 require 'thin'
 require 'liquid'
+require 'gnuplot'
+require 'date'
 
 require 'xconn/handle'
-require 'xconn/web'
 require 'xconn/ctrl'
+require 'xconn/web'
 
 module XConn
   Base = File.join(Dir.home, '.xconn')

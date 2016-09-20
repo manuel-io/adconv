@@ -2,8 +2,12 @@
 <html>
   {% include 'header' %}
   <body>
-  {% include 'title' %}
-  <h2>{{ temperature }}° C</h2>
-  <h3>Humidity: {{ humidity }}%</h3>
+    {% include 'title' %}
+    <section class='plot'>
+      <img class='temperature' src='/temperature.png' />
+    </section>
+    <section class='plot'>
+      <img class='temperature' src='/temperature_week.png' />
+    </section>
   </body>
 </html>

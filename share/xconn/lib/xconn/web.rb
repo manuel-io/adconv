@@ -1,24 +1,6 @@
 module XConn
   class WebApp < Sinatra::Base
-
-   def current(logfile)
-     temperature = 0;
-     humidity = 0;
-     moisture = 0;
-     light = 0;
-
-     line = File.readlines(logfile)[-1..-1].last
-     if line =~ /([-]*\d+) (\d+) (\d+) (\d+)/
-       temperature = $1.to_s
-       humidity = $2.to_s
-     end
-     {
-       temperature: temperature,
-       humidity: humidity,
-       moisture: moisture,
-       light: light
-     }
-   end
+    include XConn::Filter
 
     configure do
       set :threaded, false
@@ -37,16 +19,80 @@ module XConn
     }
 
     get '/' do
-      liquid :index, :locals => Defaults
+      liquid :index, :locals => Defaults.merge(current(Logfile))
     end
 
     get '/temperature' do
+      config = {
+        name: 'temperature',
+        title: 'Temperature over the Day',
+        xlabel: 'Time since Midnight [min]',
+        ylabel: 'Temperature [°C]',
+        xrange: '["0":"23"]'
+      }
+
+      x, y = format_day(config) do |y, day, line|
+        if line =~ /2016\-09\-#{day}, (\d+):\d+:\d+ \+0200: \- (\d+)/
+          y[$1.to_i].push $2.to_i
+        end
+      end
+
+      config = {
+        name: 'temperature_week',
+        title: 'Temperature over the Week',
+        xlabel: 'Time since beginning of the Week [min]',
+        ylabel: 'Temperature [°C]',
+        xrange: '["0":"167"]'
+      }
+
+      x, y = format_week(config) do |y, week, line|
+        if line =~ /2016\-09\-(\d+), (\d+):\d+:\d+ \+0200: \- (\d+)/
+          if Date.parse(line[0..9]).strftime("%W") == week
+            day_of_the_week = Date.parse("2016-09-#{$1}").strftime("%w")
+            hour = $2.to_i
+            y[((day_of_the_week.to_i - 1).to_i  * 24 )+ hour].push $3.to_i
+          end
+        end
+      end
+
       liquid :temperature, :locals => Defaults.merge({
         subtitle: 'Statistics about temperature measurement'
-      }).merge(current(Logfile))
+      })
     end
 
     get '/humidity' do
+      config = {
+        name: 'humidity',
+        title: 'Humidity over the Day',
+        xlabel: 'Time since Midnight [min]',
+        ylabel: 'Humidity [%]',
+        xrange: '["0":"23"]'
+      }
+
+      x, y = format_day(config) do |y, day, line|
+        if line =~ /2016\-09\-#{day}, (\d+):\d+:\d+ \+0200: \- \d+ (\d+)/
+          y[$1.to_i].push $2.to_i
+        end
+      end
+
+      config = {
+        name: 'humidity_week',
+        title: 'Humidity over the Week',
+        xlabel: 'Time since beginning of the Week [min]',
+        ylabel: 'Humidity [%]',
+        xrange: '["0":"167"]'
+      }
+
+      x, y = format_week(config) do |y, week, line|
+        if line =~ /2016\-09\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ (\d+)/
+          if Date.parse(line[0..9]).strftime("%W") == week
+            day_of_the_week = Date.parse("2016-09-#{$1}").strftime("%w")
+            hour = $2.to_i
+            y[((day_of_the_week.to_i - 1).to_i  * 24 )+ hour].push $3.to_i
+          end
+        end
+      end
+
       liquid :humidity, :locals => Defaults.merge({
         subtitle: 'Statistics about air humidity'
       })
@@ -72,7 +118,6 @@ module XConn
     end
 
     get '/help' do
-      current(Logfile)
       liquid :help, :locals => Defaults.merge({
         subtitle: 'Help desk'
       })
