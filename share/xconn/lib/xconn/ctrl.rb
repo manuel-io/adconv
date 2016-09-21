@@ -50,23 +50,30 @@ module XConn
       return x, y
     end
 
-    def format_week(opts)
+    def format_week(opts, time = Time.new)
       x = (0..167).collect { |i| i.to_s }
       y = (0..167).collect { |i| [0] }
+      year = time.strftime '%Y'
+      month = time.strftime '%m'
+      week = time.strftime("%W")
+
 
       File.readlines(Logfile).each do |line|
-        yield y, Time.now.strftime("%W"), line
+        yield y, year, month, week, line
       end
 
       return plot x, y, opts
     end
 
-    def format_day(opts)
+    def format_day(opts, time = Time.new)
       x = (0..23).collect { |i| i.to_s }
       y = (0..23).collect { |i| [0] }
+      year = time.strftime '%Y'
+      month = time.strftime '%m'
+      day = time.strftime '%d'
 
       File.readlines(Logfile).each do |line|
-        yield y, Time.new.strftime('%d'), line
+        yield y, year, month, day, line
       end
 
       return plot x, y, opts

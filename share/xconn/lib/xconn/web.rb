@@ -19,7 +19,10 @@ module XConn
     }
 
     get '/' do
-      liquid :index, :locals => Defaults.merge(current(Logfile))
+      liquid :index, :locals => Defaults.merge(current(Logfile)).merge({
+        date: Time.now.strftime("%d. %B %Y"),
+        time: Time.now.strftime("%H:%M %Z")
+      })
     end
 
     get '/temperature' do
@@ -31,8 +34,8 @@ module XConn
         xrange: '["0":"23"]'
       }
 
-      x, y = format_day(config) do |y, day, line|
-        if line =~ /2016\-09\-#{day}, (\d+):\d+:\d+ \+0200: \- (\d+)/
+      x, y = format_day(config) do |y, year, month, day, line|
+        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+0200: \- (\d+)/
           y[$1.to_i].push $2.to_i
         end
       end
@@ -45,10 +48,10 @@ module XConn
         xrange: '["0":"167"]'
       }
 
-      x, y = format_week(config) do |y, week, line|
-        if line =~ /2016\-09\-(\d+), (\d+):\d+:\d+ \+0200: \- (\d+)/
+      x, y = format_week(config) do |y, year, month, week, line|
+        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
-            day_of_the_week = Date.parse("2016-09-#{$1}").strftime("%w")
+            day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
             hour = $2.to_i
             y[((day_of_the_week.to_i - 1).to_i  * 24 )+ hour].push $3.to_i
           end
@@ -69,8 +72,8 @@ module XConn
         xrange: '["0":"23"]'
       }
 
-      x, y = format_day(config) do |y, day, line|
-        if line =~ /2016\-09\-#{day}, (\d+):\d+:\d+ \+0200: \- \d+ (\d+)/
+      x, y = format_day(config) do |y, year, month, day, line|
+        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+0200: \- \d+ (\d+)/
           y[$1.to_i].push $2.to_i
         end
       end
@@ -83,10 +86,10 @@ module XConn
         xrange: '["0":"167"]'
       }
 
-      x, y = format_week(config) do |y, week, line|
-        if line =~ /2016\-09\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ (\d+)/
+      x, y = format_week(config) do |y, year, month, week, line|
+        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
-            day_of_the_week = Date.parse("2016-09-#{$1}").strftime("%w")
+            day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
             hour = $2.to_i
             y[((day_of_the_week.to_i - 1).to_i  * 24 )+ hour].push $3.to_i
           end
@@ -99,12 +102,75 @@ module XConn
     end
 
     get '/moisture' do
+      config = {
+        name: 'moisture',
+        title: 'Soil moisture over the Day',
+        xlabel: 'Time since Midnight [min]',
+        ylabel: 'Moisture [%]',
+        xrange: '["0":"23"]'
+      }
+
+      x, y = format_day(config) do |y, year, month, day, line|
+        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+0200: \- \d+ \d+ (\d+)/
+          y[$1.to_i].push $2.to_i
+        end
+      end
+
+      config = {
+        name: 'moisture_week',
+        title: 'Soil moisture over the Week',
+        xlabel: 'Time since beginning of the Week [min]',
+        ylabel: 'Moisture [%]',
+        xrange: '["0":"167"]'
+      }
+
+      x, y = format_week(config) do |y, year, month, week, line|
+        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ \d+ (\d+)/
+          if Date.parse(line[0..9]).strftime("%W") == week
+            day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
+            hour = $2.to_i
+            y[((day_of_the_week.to_i - 1).to_i  * 24 )+ hour].push $3.to_i
+          end
+        end
+      end
       liquid :moisture, :locals => Defaults.merge({
         subtitle: 'Statistics about soil moisture'
       })
     end
 
     get '/light' do
+      config = {
+        name: 'light',
+        title: 'Light conditions over the Day',
+        xlabel: 'Time since Midnight [min]',
+        ylabel: 'Light [%]',
+        xrange: '["0":"23"]'
+      }
+
+      x, y = format_day(config) do |y, year, month, day, line|
+        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+0200: \- \d+ \d+ \d+ (\d+)/
+          y[$1.to_i].push $2.to_i
+        end
+      end
+
+      config = {
+        name: 'light_week',
+        title: 'Light conditions over the Week',
+        xlabel: 'Time since beginning of the Week [min]',
+        ylabel: 'Light [%]',
+        xrange: '["0":"167"]'
+      }
+
+      x, y = format_week(config) do |y, year, month, week, line|
+        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ \d+ \d+ (\d+)/
+          if Date.parse(line[0..9]).strftime("%W") == week
+            day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
+            hour = $2.to_i
+            y[((day_of_the_week.to_i - 1).to_i  * 24 )+ hour].push $3.to_i
+          end
+        end
+      end
+
       liquid :light, :locals => Defaults.merge({
         subtitle: 'Statistics about light conditions'
       })

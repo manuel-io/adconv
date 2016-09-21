@@ -31,28 +31,34 @@ textarea {
 header {
   padding: 10px;
   background-color: #000000;
+  background: linear-gradient(to bottom, #000000 5%, #f6f6f6 100%);
+  border: 1px solid #dcdcdc;
 }
 
 header h1 {
+  padding-top: 5px;
+}
+
+header h1 p {
   color: #fff;
-  text-shadow: -1px 0 #222, 0 1px #222, 1px 0 #222, 0 -1px #222;
-  margin: 5px;
-  margin-left: 20px;
+  font-weight: bold;
+  text-shadow: -1px 0 #666, 0 1px #666, 1px 0 #666, 0 -1px #666;
   margin-bottom: 10px;
-  background-color: #4a90d9;
   display: inline;
-  padding: 5px;
+  padding: 10px;
+  padding-bottom: 0px;
 }
 
 header h2 {
+  color: #666;
   padding: 5px;
   background-color: #fff;
-  border: 2px solid #222;
+  border: 2px solid #666;
 }
 
 nav {
-  margin-top: 2px;
-  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   text-align: center;
 }
 
@@ -85,30 +91,30 @@ nav a:active {
 
 button#autoreload {
   position: absolute;
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
 }
 
 section.current {
-  float: right;
-  z-index: 10;
-  border: 1px solid #000;
+  border: 1px solid #dcdcdc;
   border-radius: 3px;
   background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
   background-color: #cecece;
   opacity: 0.8;
-  padding: 15px;
-  width: 200px;
+  padding: 30px;
 }
 
 section.current h2 {
-  font-size: 2.5em;
-  text-align: right;
-  color: #333;
+  font-size: 6em;
+  text-align: center;
+  color: #666666;
 }
 
 section.current h3 {
-  font-size: 1em;
-  text-align: left;
-  color: #333;
+  font-size: 1.5em;
+  text-align: right;
+  color: #888888;
 }
 
 section.plot {
