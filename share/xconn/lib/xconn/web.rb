@@ -29,7 +29,7 @@ module XConn
       config = {
         name: 'temperature',
         title: 'Temperature over the Day',
-        xlabel: 'Time since Midnight [min]',
+        xlabel: 'Time since Midnight [h]',
         ylabel: 'Temperature [°C]',
         xrange: '["0":"23"]'
       }
@@ -43,7 +43,7 @@ module XConn
       config = {
         name: 'temperature_week',
         title: 'Temperature over the Week',
-        xlabel: 'Time since beginning of the Week [min]',
+        xlabel: 'Time since beginning of the Week [h]',
         ylabel: 'Temperature [°C]',
         xrange: '["0":"167"]'
       }
@@ -67,7 +67,7 @@ module XConn
       config = {
         name: 'humidity',
         title: 'Humidity over the Day',
-        xlabel: 'Time since Midnight [min]',
+        xlabel: 'Time since Midnight [h]',
         ylabel: 'Humidity [%]',
         xrange: '["0":"23"]'
       }
@@ -81,7 +81,7 @@ module XConn
       config = {
         name: 'humidity_week',
         title: 'Humidity over the Week',
-        xlabel: 'Time since beginning of the Week [min]',
+        xlabel: 'Time since beginning of the Week [h]',
         ylabel: 'Humidity [%]',
         xrange: '["0":"167"]'
       }
@@ -105,7 +105,7 @@ module XConn
       config = {
         name: 'moisture',
         title: 'Soil moisture over the Day',
-        xlabel: 'Time since Midnight [min]',
+        xlabel: 'Time since Midnight [h]',
         ylabel: 'Moisture [%]',
         xrange: '["0":"23"]'
       }
@@ -119,7 +119,7 @@ module XConn
       config = {
         name: 'moisture_week',
         title: 'Soil moisture over the Week',
-        xlabel: 'Time since beginning of the Week [min]',
+        xlabel: 'Time since beginning of the Week [h]',
         ylabel: 'Moisture [%]',
         xrange: '["0":"167"]'
       }
@@ -142,7 +142,7 @@ module XConn
       config = {
         name: 'light',
         title: 'Light conditions over the Day',
-        xlabel: 'Time since Midnight [min]',
+        xlabel: 'Time since Midnight [h]',
         ylabel: 'Light [%]',
         xrange: '["0":"23"]'
       }
@@ -156,7 +156,7 @@ module XConn
       config = {
         name: 'light_week',
         title: 'Light conditions over the Week',
-        xlabel: 'Time since beginning of the Week [min]',
+        xlabel: 'Time since beginning of the Week [h]',
         ylabel: 'Light [%]',
         xrange: '["0":"167"]'
       }

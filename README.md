@@ -73,6 +73,8 @@ instance, the measured weather data can be transmitted to a Raspberry
 Pi or similar. The source base includes a web interface which is ready
 for that scenario.
 
+![Interface](share/xconn.png)
+
 ## SClient
 
 The SClient is a small program in order to simulate the behavior of a

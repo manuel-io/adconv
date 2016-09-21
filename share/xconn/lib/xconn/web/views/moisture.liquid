@@ -4,10 +4,15 @@
   <body>
   {% include 'title' %}
     <section class='plot'>
-      <img class='moisture' src='/moisture.png' />
+      <a href='/moisture.png' data-lightbox='m1' data-title='Soil moisture'>
+        <img class='moisture' src='/moisture.png' />
+      </a>
     </section>
     <section class='plot'>
-      <img class='moisture' src='/moisture_week.png' />
+      <a href='/moisture_week.png' data-lightbox='m1' data-title='Soil moisture'>
+        <img class='moisture' src='/moisture_week.png' />
+      </a>
     </section>
+  {% include 'footer' %}
   </body>
 </html>

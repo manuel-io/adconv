@@ -4,10 +4,15 @@
   <body>
   {% include 'title' %}
     <section class='plot'>
-      <img class='light' src='/light.png' />
+      <a href='/light.png' data-lightbox='l1' data-title='Light'>
+        <img class='light' src='/light.png' />
+      </a>
     </section>
     <section class='plot'>
-      <img class='light' src='/light_week.png' />
+      <a href='/light_week.png' data-lightbox='l1' data-title='Light'>
+        <img class='light' src='/light_week.png' />
+      </a>
     </section>
+  {% include 'footer' %}
   </body>
 </html>

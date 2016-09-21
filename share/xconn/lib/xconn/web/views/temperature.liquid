@@ -2,12 +2,17 @@
 <html>
   {% include 'header' %}
   <body>
-    {% include 'title' %}
+  {% include 'title' %}
     <section class='plot'>
-      <img class='temperature' src='/temperature.png' />
+      <a href='/temperature.png' data-lightbox='t1' data-title='Temperature'>
+        <img class='temperature' src='/temperature.png' />
+      </a>
     </section>
     <section class='plot'>
-      <img class='temperature' src='/temperature_week.png' />
+      <a href='/temperature_week.png' data-lightbox='t1' data-title='Temperature'>
+        <img class='temperature' src='/temperature_week.png' />
+      </a>
     </section>
+  {% include 'footer' %}
   </body>
 </html>
