@@ -21,7 +21,7 @@ module XConn
       }
     end
 
-    def plot(x, y, opts)
+    def plot(file, x, y, opts)
       y = y.collect do |i|
         if i.length > 1 then
           i.inject(:+)/(i.length-1)
@@ -38,7 +38,7 @@ module XConn
           plot.xrange opts[:xrange]
           plot.grid
           plot.terminal 'png'                                                            
-          plot.output File.join(settings.public_folder, "#{opts[:name]}.png")
+          plot.output file
 
           plot.data << Gnuplot::DataSet.new( [x, y] ) do |ds|
             ds.with = 'lines lt rgb "#4a90d9"'
@@ -55,14 +55,24 @@ module XConn
       y = (0..167).collect { |i| [0] }
       year = time.strftime '%Y'
       month = time.strftime '%m'
-      week = time.strftime("%W")
+      week = time.strftime '%W'
+      file = File.join(settings.public_folder, 'graphics', "#{opts[:name]}.png") 
 
-
-      File.readlines(Logfile).each do |line|
-        yield y, year, month, week, line
+      def file.exist?
+        File.exist? self
       end
 
-      return plot x, y, opts
+      def file.update?
+        File.mtime(self).to_i < (Time.now.to_i - 300)
+      end
+
+      if !file.exist? || file.update?
+        File.readlines(Logfile).each do |line|
+          yield y, year, month, week, line
+        end
+
+        return plot file, x, y, opts
+      end
     end
 
     def format_day(opts, time = Time.new)
@@ -71,12 +81,23 @@ module XConn
       year = time.strftime '%Y'
       month = time.strftime '%m'
       day = time.strftime '%d'
+      file = File.join(settings.public_folder, 'graphics', "#{opts[:name]}.png") 
 
-      File.readlines(Logfile).each do |line|
-        yield y, year, month, day, line
+      def file.exist?
+        File.exist? self
       end
 
-      return plot x, y, opts
+      def file.update?
+        File.mtime(self).to_i < (Time.now.to_i - 300)
+      end
+
+      if !file.exist? || file.update?
+        File.readlines(Logfile).each do |line|
+          yield y, year, month, day, line
+        end
+
+        return plot file, x, y, opts
+      end
     end
   end
 
