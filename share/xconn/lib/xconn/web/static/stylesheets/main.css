@@ -14,18 +14,11 @@
 html, body
 {
   margin: auto;
-  width: 800px;
-}
-
-#autoreload {
-  color: #cccccc;
 }
 
 textarea {
-  border 0px;
-  width: 790px;
+  border: 1px solid #dcdcdc;
   height: 400px;
-  padding-top: 35px;
 }
 
 header {
@@ -74,9 +67,11 @@ nav a {
   font-family: Arial;
   font-size: 15px;
   font-weight: bold;
-  padding: 6px 24px;
+  padding: 6px 20px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #ffffff;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 nav a:hover {
@@ -91,6 +86,7 @@ nav a:active {
 
 button#autoreload {
   position: absolute;
+  color: #cccccc;
   width: 100px;
   height: 30px;
   font-size: 16px;
@@ -109,6 +105,8 @@ section.current h2 {
   font-size: 6em;
   text-align: center;
   color: #666666;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 section.current h3 {
@@ -119,7 +117,6 @@ section.current h3 {
 
 section.plot {
   float: left;
-  width: 358px;
   text-align: center;
   background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
   background-color: #ffffff;
@@ -131,4 +128,37 @@ section.plot {
 section.plot img {
   text-align: center;
   width: 100%;
+}
+
+/* iPhone5 */
+@media screen and (min-width: 0px) {
+  html, body { width: 320px; }
+  textarea { width: 318px; }
+  textarea { font-size: 11px; }
+  section.plot { width: 278px; }
+  section.current { width: 258px; }
+  section.current h2 { font-size: 3em; }
+  section.current h3 { font-size: .8em; }
+}
+
+/* iPhone6+ */
+@media screen and (min-width: 414px) {
+  html, body { width: 414px; }
+  textarea { width: 412px; }
+  textarea { font-size: 13px; }
+  section.plot { width: 372px; }
+  section.current { width: 352px; }
+  section.current h2 { font-size: 3.2em; }
+  section.current h3 { font-size: 1em; }
+}
+
+/* iPad */
+@media screen and (min-width: 768px) {
+  html, body { width: 768px; }
+  textarea { width: 766px; }
+  textarea { font-size: 14px; }
+  section.plot { width: 342px; }
+  section.current { width: 706px; }
+  section.current h2 { font-size: 5em; }
+  section.current h3 { font-size: 1.5em; }
 }
