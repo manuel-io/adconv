@@ -8,6 +8,7 @@
  * humidity sensor complex with a calibrated digital signal output.
  */
 
+static void dht_reset(void);
 static void dht_start(void);
 static void dht_response(void);
 static uint8_t dht_bit(void);
@@ -97,10 +98,19 @@ dht_byte()
   return byte;
 }
 
+static void
+dht_reset()
+{
+  DHT_DDR |= (1 << DHT_PIN);
+  DHT_OUTPUT |= (1 << 7);
+  _delay_ms(100);
+}
+
 void
 dht_query(uint8_t *data)
 {
   cli();
+  dht_reset();
   dht_start();
   dht_response();
 
@@ -124,8 +134,5 @@ dht_check(uint8_t *data)
 void
 dht_init()
 {
-  /* RESET */
-  DHT_DDR |= (1 << DHT_PIN);
-  DHT_OUTPUT |= (1 << 7);
-  _delay_ms(100);
+  dht_reset();
 }
