@@ -3,16 +3,19 @@
   {% include 'header' %}
   <body>
   {% include 'title' %}
-    <section class='plot'>
-      <a href='/graphics/light.png' data-lightbox='l1' data-title='Light'>
-        <img class='light' src='/graphics/light.png' />
-      </a>
-    </section>
-    <section class='plot'>
-      <a href='/graphics/light_week.png' data-lightbox='l1' data-title='Light'>
-        <img class='light' src='/graphics/light_week.png' />
-      </a>
-    </section>
+  <section class='week'>
+    <h4>Week N°{{ week }}</h4>
+  </section>
+  <section class='plot left'>
+    <a href='/graphics/light.png' data-lightbox='l1' data-title='Light'>
+      <img class='light' src='/graphics/light.png' />
+    </a>
+  </section>
+  <section class='plot right'>
+    <a href='/graphics/light_week.png' data-lightbox='l1' data-title='Light'>
+      <img class='light' src='/graphics/light_week.png' />
+    </a>
+  </section>
   {% include 'footer' %}
   </body>
 </html>

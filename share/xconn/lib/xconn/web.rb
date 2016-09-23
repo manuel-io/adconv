@@ -14,15 +14,12 @@ module XConn
         File.join(File.dirname(__FILE__), %w[web includes])
 
     Defaults = {
-      title: 'XConnector: WeatherApp',
+      title: 'Weather Stats',
       subtitle: 'Overview'
     }
 
     get '/' do
-      liquid :index, :locals => Defaults.merge(current(Logfile)).merge({
-        date: Time.now.strftime("%d. %B %Y"),
-        time: Time.now.strftime("%H:%M %Z")
-      })
+      liquid :index, :locals => Defaults.merge(current(Logfile))
     end
 
     get '/temperature' do
@@ -48,7 +45,7 @@ module XConn
         xrange: '["0":"167"]'
       }
 
-      x, y = format_week(config) do |y, year, month, week, line|
+      x, y, week = format_week(config) do |y, year, month, week, line|
         if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
             day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
@@ -59,7 +56,8 @@ module XConn
       end
 
       liquid :temperature, :locals => Defaults.merge({
-        subtitle: 'Statistics about temperature measurement'
+        subtitle: 'Temperature',
+        week: week
       })
     end
 
@@ -86,7 +84,7 @@ module XConn
         xrange: '["0":"167"]'
       }
 
-      x, y = format_week(config) do |y, year, month, week, line|
+      x, y, week = format_week(config) do |y, year, month, week, line|
         if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
             day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
@@ -97,7 +95,8 @@ module XConn
       end
 
       liquid :humidity, :locals => Defaults.merge({
-        subtitle: 'Statistics about air humidity'
+        subtitle: 'Air humidity',
+        week: week
       })
     end
 
@@ -124,7 +123,7 @@ module XConn
         xrange: '["0":"167"]'
       }
 
-      x, y = format_week(config) do |y, year, month, week, line|
+      x, y, week = format_week(config) do |y, year, month, week, line|
         if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ \d+ (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
             day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
@@ -134,7 +133,8 @@ module XConn
         end
       end
       liquid :moisture, :locals => Defaults.merge({
-        subtitle: 'Statistics about soil moisture'
+        subtitle: 'Soil moisture',
+        week: week
       })
     end
 
@@ -161,7 +161,7 @@ module XConn
         xrange: '["0":"167"]'
       }
 
-      x, y = format_week(config) do |y, year, month, week, line|
+      x, y, week = format_week(config) do |y, year, month, week, line|
         if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ \d+ \d+ (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
             day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
@@ -172,13 +172,14 @@ module XConn
       end
 
       liquid :light, :locals => Defaults.merge({
-        subtitle: 'Statistics about light conditions'
+        subtitle: 'Light conditions',
+        week: week
       })
     end
 
     get '/raw' do
       liquid :raw, :locals => Defaults.merge({
-        subtitle: 'Unfilterd recived serial data',
+        subtitle: 'Serial data',
         lines: File.read(Logfile)
       })
     end

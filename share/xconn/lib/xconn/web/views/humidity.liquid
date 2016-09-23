@@ -3,12 +3,15 @@
   {% include 'header' %}
   <body>
   {% include 'title' %}
-  <section class='plot'>
+  <section class='week'>
+    <h4>Week N°{{ week }}</h4>
+  </section>
+  <section class='plot left'>
     <a href='/graphics/humidity.png' data-lightbox='h1' data-title='Humidity'>
       <img class='humidity' src='/graphics/humidity.png' />
     </a>
   </section>
-  <section class='plot'>
+  <section class='plot right'>
     <a href='/graphics/humidity_week.png' data-lightbox='h1' data-title='Humidty'>
       <img class='humidity' src='/graphics/humidity_week.png' />
     </a>

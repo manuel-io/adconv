@@ -3,17 +3,23 @@ module XConn
   module Filter
 
     def current(logfile)
+      time = String.new
+      date = String.new
       temperature = 0;
       humidity = 0;
       moisture = 0;
       light = 0;
 
       line = File.readlines(logfile)[-1..-1].last
-      if line =~ /([-]*\d+) (\d+) (\d+) (\d+)/
-        temperature = $1.to_s
-        humidity = $2.to_s
+      if line =~ /([\-\d]+, [:\d]+ \+\d+): - (\d+) (\d+) (\d+) (\d+)/
+        time = Time.parse($1).strftime("%H:%M %Z")
+        date = Time.parse($1).strftime("%d. %B %Y")
+        temperature = $2.to_s
+        humidity = $3.to_s
       end
       {
+        time: time,
+        date: date,
         temperature: temperature,
         humidity: humidity,
         moisture: moisture,
@@ -71,8 +77,10 @@ module XConn
           yield y, year, month, week, line
         end
 
-        return plot file, x, y, opts
+        return *plot(file, x, y, opts), week
       end
+
+      return 0, 0, week
     end
 
     def format_day(opts, time = Time.new)

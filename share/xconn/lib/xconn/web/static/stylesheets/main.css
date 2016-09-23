@@ -11,9 +11,16 @@
   font-family: 'DefaultMono';
 }
 
-html, body
-{
+html {
+  background-color: #000;
+}
+
+body {
   margin: auto;
+  background-color: #fff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 textarea {
@@ -38,7 +45,6 @@ header h1 p {
   text-shadow: -1px 0 #666, 0 1px #666, 1px 0 #666, 0 -1px #666;
   margin-bottom: 10px;
   display: inline;
-  padding: 10px;
   padding-bottom: 0px;
 }
 
@@ -92,7 +98,7 @@ button#autoreload {
   font-size: 16px;
 }
 
-section.current {
+section.current, section.week {
   border: 1px solid #dcdcdc;
   border-radius: 3px;
   background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
@@ -101,8 +107,12 @@ section.current {
   padding: 30px;
 }
 
+section.week {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 section.current h2 {
-  font-size: 6em;
   text-align: center;
   color: #666666;
   margin-top: 30px;
@@ -110,9 +120,13 @@ section.current h2 {
 }
 
 section.current h3 {
-  font-size: 1.5em;
   text-align: right;
   color: #888888;
+}
+
+section.week h4 {
+  text-align: left;
+  color: #666666;
 }
 
 section.plot {
@@ -122,7 +136,18 @@ section.plot {
   background-color: #ffffff;
   border: 1px solid #dcdcdc;
   padding: 10px;
+}
+
+section.left {
+  float: left;
   margin: 10px;
+  margin-left: 0px;
+}
+
+section.right {
+  float: right;
+  margin: 10px;
+  margin-right: 0px;
 }
 
 section.plot img {
@@ -132,33 +157,33 @@ section.plot img {
 
 /* iPhone5 */
 @media screen and (min-width: 0px) {
-  html, body { width: 320px; }
+  body { width: 320px; }
   textarea { width: 318px; }
   textarea { font-size: 11px; }
-  section.plot { width: 278px; }
-  section.current { width: 258px; }
+  section.plot { width: 288px; }
   section.current h2 { font-size: 3em; }
   section.current h3 { font-size: .8em; }
+  section.week h4 { font-size: .8em; }
 }
 
 /* iPhone6+ */
 @media screen and (min-width: 414px) {
-  html, body { width: 414px; }
+  body { width: 414px; }
   textarea { width: 412px; }
   textarea { font-size: 13px; }
-  section.plot { width: 372px; }
-  section.current { width: 352px; }
+  section.plot { width: 382px; }
   section.current h2 { font-size: 3.2em; }
   section.current h3 { font-size: 1em; }
+  section.week h4 { font-size: 1em; }
 }
 
 /* iPad */
 @media screen and (min-width: 768px) {
-  html, body { width: 768px; }
+  body { width: 768px; }
   textarea { width: 766px; }
   textarea { font-size: 14px; }
-  section.plot { width: 342px; }
-  section.current { width: 706px; }
+  section.plot { width: 352px; }
   section.current h2 { font-size: 5em; }
   section.current h3 { font-size: 1.5em; }
+  section.week h4 { font-size: 1em; }
 }
