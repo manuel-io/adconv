@@ -5,13 +5,13 @@ module XConn
     configure do
       set :threaded, false
       set :root, File.dirname(__FILE__)
-      set :views, File.join(File.dirname(__FILE__), %w[web views])
-      set :public_folder, File.join(File.dirname(__FILE__), %w[web static])
+      set :views, File.join(File.dirname(__FILE__), *%w[web views])
+      set :public_folder, File.join(File.dirname(__FILE__), *%w[web static])
     end
   
     Liquid::Template.file_system =
       Liquid::LocalFileSystem.new \
-        File.join(File.dirname(__FILE__), %w[web includes])
+        File.join(File.dirname(__FILE__), *%w[web includes])
 
     Defaults = {
       title: 'Weather Stats',
@@ -186,7 +186,8 @@ module XConn
 
     get '/help' do
       liquid :help, :locals => Defaults.merge({
-        subtitle: 'Help desk'
+        subtitle: 'Help desk',
+        license: File.read(License)
       })
     end
 

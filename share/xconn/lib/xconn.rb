@@ -17,6 +17,7 @@ require 'xconn/web'
 module XConn
   Base = File.join(Dir.home, '.xconn')
   Logfile = File.join(Base, 'xconn.log')
+  License = File.join(File.dirname(__FILE__), *%w[.. .. .. LICENSE])
   Dir.mkdir Base, 0700 unless Dir.exist? Base
   FileUtils.touch(Logfile)
 end

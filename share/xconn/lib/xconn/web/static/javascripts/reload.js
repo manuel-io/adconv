@@ -3,13 +3,13 @@ var autoreload = true;
 $(document).ready(function() {
   $('#logbar').scrollTop($('#logbar')[0].scrollHeight);
   
-  $("#autoreload").click(function() {
+  $("#reload").click(function() {
     if (autoreload) {
       autoreload = false;
-      $(this).css('color', '#000000');
+      $(this).css('color', '#666666');
     } else {
       autoreload = true;
-      $(this).css('color', '#cccccc');
+      $(this).css('color', '#aaaaaa');
       window.location.reload(true);
     }
   });

@@ -3,6 +3,10 @@
   {% include 'header' %}
   <body>
   {% include 'title' %}
-  {% include 'log' %}
+  <section class='current reload'>
+    <button id='reload' class='reload'>Reload</button>
+  </section>
+  <textarea id='logbar'>{{ lines }}</textarea>
+  <script src='/javascripts/reload.js' type='text/javascript'></script>
   </body>
 </html>
