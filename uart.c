@@ -57,11 +57,19 @@ uart_putc(uint8_t b)
 
 static uint8_t
 uart_getc() {
+  uint8_t i = 0;
   /* This flag bit is set when there are unread data in the receive
    * buffer and cleared when the receive buffer is empty (that is,
    * does not contain any unread data).
    */
-  while (IS_UNSET(UCSRA, RXC));
+  while (IS_UNSET(UCSRA, RXC)) {
+    if (i > 250) {
+      i = 0;
+      return '.';
+    }
+    _delay_ms(4);
+    i++;
+  }
   return UDR;
 }
 
@@ -91,9 +99,17 @@ uart_start()
 uint8_t
 uart_send(int8_t temp, uint8_t air, uint8_t soil, uint8_t light)
 {
+  uint8_t i = 0;
   char data[16];
 
-  while (!uart_start());
+  while (!uart_start()) {
+    if (i > 250) {
+      i = 0;
+      return 0;
+    }
+    _delay_ms(4);
+    i++;
+  }
   
   sprintf(data, "- %d %d %d %d", temp, air, soil, light);
   uart_putstr((uint8_t *)data);
