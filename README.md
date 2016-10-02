@@ -44,10 +44,12 @@ Strip-Gridboard 100x100, RM2.54
     timeout is triggered or set the DISABLE_XCON makro
 8. Visit [http://localhost:9292](http://localhost:9292) in your browser
 
-    cd adconv/share/xcon
-    bundle install
-    bundle exec bin/xconn.rb [-d device] [--no-stats] [--no-web] [-h]
-
+```bash
+cd adconv/share/xcon
+bundle install
+bundle exec bin/xconn.rb [-d device] [--no-stats] [--no-web] [-h]
+```
+    
 ## Construction elements
 
 | Amount | Layout       | Element            | Reichelt        | Amazon                        |
