@@ -4,12 +4,12 @@ module XConn
 
      ctrl = Thread.new do
         Ctrl.new({
-          baudrate: 9600,
+          baudrate: modifiers[:baud],
           port: modifiers[:device],
           data: 8,
           stop: 1,
           timeout: 5000
-        })
+        }) if modifiers[:stats]
       end
 
       app = Thread.new do
@@ -17,12 +17,15 @@ module XConn
           app: Rack::Builder.app { run WebApp },
           server: 'thin',
           Host: '0.0.0.0',
-          Port: '9292'
-        })
+          Port: modifiers[:port].to_s
+        }) if modifiers[:web]
       end
 
       ctrl.abort_on_exception = true
-      app.join
+      exit false unless modifiers[:stats] unless modifiers[:web]
+      unless modifiers[:web] then ctrl.join
+      else app.join
+      end
     end
   end
 end
