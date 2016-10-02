@@ -1,3 +1,5 @@
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
 #include <util/delay.h>
 #include <avr/io.h>
 #include <stdio.h>
@@ -30,7 +32,9 @@ main(void)
       STATUS_LED_ON;
     }
 
+    #ifndef DISABLE_XCONN
     uart_send(dht[2], dht[0], fc28, ldr);
+    #endif /* DISABLE_XCONN */
 
     for (uint8_t i = 0; i < 10; i++) {
 
@@ -66,7 +70,34 @@ main(void)
 
       _delay_ms(3000);
     }
+
+    #ifndef POWERSAVING_OFF
+    uint8_t i = 0;
+
+    /* CPU-Takt / 1024 */
+    TCCR1B |= (1 << CS12) | (1 << CS10);
+    TIMSK |= (1 << TOIE1);
+
+    sei();
+
+    lcd_off();
+    adc_disable();
+    set_sleep_mode(SLEEP_MODE_IDLE);
+
+    while (i < 100) {
+      sleep_mode();
+      i++;
+    }
+
+    cli();
+    lcd_on();
+    #endif /* POWERSAVING_OFF */
   }
 
   return 0;
+}
+
+ISR(TIMER1_OVF_vect)
+{
+
 }

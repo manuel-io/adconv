@@ -123,6 +123,12 @@ adc_init(uint8_t channel) {
   ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
 }
 
+void
+adc_disable()
+{
+  ADCSRA &= ~(1 << ADEN);
+}
+
 uint8_t
 adc_read(uint8_t channel)
 {

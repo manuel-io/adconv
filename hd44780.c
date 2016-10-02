@@ -34,6 +34,28 @@ lcd_soft_reset()
 }
 
 void
+lcd_on()
+{
+  lcd_command( LCD_SET_DISPLAY
+             | LCD_DISPLAY_ON
+             | LCD_CURSOR_OFF
+             | LCD_BLINKING_OFF);
+
+  lcd_clear();
+}
+
+void
+lcd_off()
+{
+  lcd_command( LCD_SET_DISPLAY
+             | LCD_DISPLAY_OFF
+             | LCD_CURSOR_OFF
+             | LCD_BLINKING_OFF);
+
+  lcd_clear();
+}
+
+void
 lcd_init()
 {
     LCD_DDR |= 0x3c | (1 << LCD_R) | (1 << LCD_E);
