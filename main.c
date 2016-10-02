@@ -84,7 +84,11 @@ main(void)
     adc_disable();
     set_sleep_mode(SLEEP_MODE_IDLE);
 
+    #ifndef V2
     while (i < 100) {
+    #else
+    while (i < 200) {
+    #endif /* V2 */
       sleep_mode();
       i++;
     }
