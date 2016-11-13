@@ -17,11 +17,14 @@ FLASHCMD    := avrdude -V -c usbasp -p $(MCU) -U lfuse:w:0x9f:m -U hfuse:w:0xc9:
 
 .PHONY: clean dispatch
 
-all: $(NAME).hex $(NAME).bin
-	$(info $(VERSION))
+all: $(NAME).hex $(NAME).bin sclient
+	$(info $(NAME) $(VERSION))
 
 dispatch: $(NAME).hex
 	$(FLASHCMD)
+
+sclient:
+	$(MAKE) -C share/sclient all
 
 %.o: %.c
 	$(MCU_CC) -c $(CFLAGS) $<
@@ -39,5 +42,6 @@ $(NAME).elf: main.o hd44780.o dht11.o adc.o uart.o
 	$(MCU_CC) $(CFLAGS) $(LDFLAGS) -o $@ $+
 
 clean:
+	$(MAKE) -C share/sclient clean
 	rm -rf $(NAME) *.elf *.d *.o *.hex *.bin *.map
 
