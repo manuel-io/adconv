@@ -71,7 +71,7 @@ module XConn
       }
 
       x, y = format_day(config) do |y, year, month, day, line|
-         /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+\d{4}: \- \d+ (\d+)/
+         if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+\d{4}: \- \d+ (\d+)/
           y[$1.to_i].push $2.to_i
         end
       end
@@ -190,6 +190,5 @@ module XConn
         license: File.read(License)
       })
     end
-
   end
 end
