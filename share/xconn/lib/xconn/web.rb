@@ -32,7 +32,7 @@ module XConn
       }
 
       x, y = format_day(config) do |y, year, month, day, line|
-        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+0200: \- (\d+)/
+        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+\d{4}: \- (\d+)/
           y[$1.to_i].push $2.to_i
         end
       end
@@ -46,7 +46,7 @@ module XConn
       }
 
       x, y, week = format_week(config) do |y, year, month, week, line|
-        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- (\d+)/
+        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+\d{4}: \- (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
             day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
             hour = $2.to_i
@@ -71,7 +71,7 @@ module XConn
       }
 
       x, y = format_day(config) do |y, year, month, day, line|
-        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+0200: \- \d+ (\d+)/
+         /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+\d{4}: \- \d+ (\d+)/
           y[$1.to_i].push $2.to_i
         end
       end
@@ -85,7 +85,7 @@ module XConn
       }
 
       x, y, week = format_week(config) do |y, year, month, week, line|
-        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ (\d+)/
+        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+\d{4}: \- \d+ (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
             day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
             hour = $2.to_i
@@ -110,7 +110,7 @@ module XConn
       }
 
       x, y = format_day(config) do |y, year, month, day, line|
-        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+0200: \- \d+ \d+ (\d+)/
+        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+\d{4}: \- \d+ \d+ (\d+)/
           y[$1.to_i].push $2.to_i
         end
       end
@@ -124,7 +124,7 @@ module XConn
       }
 
       x, y, week = format_week(config) do |y, year, month, week, line|
-        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ \d+ (\d+)/
+        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+\d{4}: \- \d+ \d+ (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
             day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
             hour = $2.to_i
@@ -148,7 +148,7 @@ module XConn
       }
 
       x, y = format_day(config) do |y, year, month, day, line|
-        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+0200: \- \d+ \d+ \d+ (\d+)/
+        if line =~ /#{year}\-#{month}\-#{day}, (\d+):\d+:\d+ \+\d{4}: \- \d+ \d+ \d+ (\d+)/
           y[$1.to_i].push $2.to_i
         end
       end
@@ -162,7 +162,7 @@ module XConn
       }
 
       x, y, week = format_week(config) do |y, year, month, week, line|
-        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+0200: \- \d+ \d+ \d+ (\d+)/
+        if line =~ /#{year}\-#{month}\-(\d+), (\d+):\d+:\d+ \+\d{4}: \- \d+ \d+ \d+ (\d+)/
           if Date.parse(line[0..9]).strftime("%W") == week
             day_of_the_week = Date.parse("#{year}-#{month}-#{$1}").strftime("%w")
             hour = $2.to_i
