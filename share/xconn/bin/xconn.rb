@@ -2,7 +2,7 @@
 $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
 require 'xconn'
-require 'getoptlong'
+require 'optparse'
 
 modifiers = {
   device: '/dev/ttyUSB0',
@@ -11,10 +11,6 @@ modifiers = {
   stats: true,
   web: true
 }
-
-opts = GetoptLong.new(
-  [ '--device', '-d', GetoptLong::REQUIRED_ARGUMENT  ]
-)
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename($0)} [options]"

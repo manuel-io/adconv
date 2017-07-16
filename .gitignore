@@ -8,5 +8,5 @@
 *~
 test
 docs
-graphics
 *.lock
+share/xconn/lib/xconn/web/static/graphics/*.png
