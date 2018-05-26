@@ -1,7 +1,8 @@
 # ADConv
 
-ADConv is the software for a weather station based on the ATmega8
-initially
+ADConv is the software for a weather station based on the ATmega8 initially
+
+[![Build Status](https://travis-ci.org/manuel-io/adconv.svg?branch=atmega8)](https://travis-ci.org/manuel-io/adconv)
 
 ---
 
